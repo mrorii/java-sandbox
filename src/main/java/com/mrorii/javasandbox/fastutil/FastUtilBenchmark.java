@@ -1,13 +1,9 @@
 package com.mrorii.javasandbox.fastutil;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
-import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 
@@ -28,8 +24,11 @@ public class FastUtilBenchmark {
 	@Benchmark
 	public Long2ObjectMap givenFastUtilsMapWithInitialSizeSet_whenPopulated_checkTimeTaken() {
 		Long2ObjectMap<String> map = new Long2ObjectOpenHashMap<>((int) mapSize);
-		for(long i = 0; i < mapSize; i++){
+		for (long i = 0; i < mapSize; i++) {
 			map.put(i, String.valueOf(i));
+		}
+		for (long i = 0; i < mapSize; i++) {
+			map.put(i, map.get(i) + map.get(i));
 		}
 		return map;
 	}
@@ -37,8 +36,11 @@ public class FastUtilBenchmark {
 	@Benchmark
 	public Map<Long, String> givenFastUtilsMap2WithInitialSizeSet_whenPopulated_checkTimeTaken() {
 		Map<Long, String> map = new Long2ObjectOpenHashMap<>((int) mapSize);
-		for(long i = 0; i < mapSize; i++){
+		for (long i = 0; i < mapSize; i++) {
 			map.put(i, String.valueOf(i));
+		}
+		for (long i = 0; i < mapSize; i++) {
+			map.put(i, map.get(i) + map.get(i));
 		}
 		return map;
 	}
@@ -46,8 +48,11 @@ public class FastUtilBenchmark {
 	@Benchmark
 	public Map<Long, String> givenCollectionsMapWithInitialSizeSet_whenPopulated_checkTimeTaken() {
 		Map<Long, String> map = new HashMap<>((int) mapSize);
-		for(long i = 0; i < mapSize; i++){
+		for (long i = 0; i < mapSize; i++){
 			map.put(i, String.valueOf(i));
+		}
+		for (long i = 0; i < mapSize; i++){
+			map.put(i, map.get(i) + map.get(i));
 		}
 		return map;
 	}
